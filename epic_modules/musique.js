@@ -22,6 +22,12 @@ function getYoutubeLink(string) {
     return ["https://www.youtube.com"+$(".yt-lockup-title a")[0].attribs.href, name, finalName];
 }
 
+var killSong = function() {
+    child_process.exec("killall mplayer", function() {
+	console.log("La musique a ete arretee")
+    });
+}
+
 var playSong = function(string) {
     var data = getYoutubeLink(string); 
     var url = data[0];
@@ -96,3 +102,4 @@ function getFinalYoutube(string) {
 }
 
 exports.playSong = playSong;
+exports.killSong = killSong;

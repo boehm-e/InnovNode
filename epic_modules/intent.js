@@ -9,7 +9,7 @@ var news = require("./news.js").news;
 var itineraire = require("./itineraire.js").itineraire;
 var recettes = require("./recettes.js").recettes;
 var images = require("./images.js").images;
-var playSong = require("./musique.js").playSong;
+var music = require("./musique.js");
 
 getIntent = function(string, lexic) {
     var type = "";
@@ -22,10 +22,17 @@ getIntent = function(string, lexic) {
 	});
     }
 
+    // KILL SONG
+    for (var i=0; i<lexic["killMusique"].length; i++) {
+	if (string == lexic["killMusique"][i]) {
+	    music.killSong();
+	}
+    }
+
     // PLAY MUSIC ?
     for (var i=0; i<lexic["musique"].length; i++) {
 	if (string.indexOf(lexic["musique"][i]) != -1) {
-	    result = playSong(string);
+	    result = music.playSong(string);
 	    type = "music";
 	}
     }

@@ -9,6 +9,7 @@
     "itineraire": ["itinéraire", "aller à", "naviguer vers"],
     "recettes": ["recette", "recettes"],
     "musique": ["écouter"],
+    "killMusique": ["arrête la musique", "stop la musique", "stop"],
     "question": {
 	"weather": ["quel temps", "météo", "faire beau", "parapluie"],
 	"time": ["quelle heure", "quel jour"],
