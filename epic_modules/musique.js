@@ -1,10 +1,11 @@
 var YoutubeMp3Downloader = require('youtube-mp3-downloader');
-var exec = require('child_process').exec;
+var fs = require('fs');
+var child_process = require("child_process");
 var Regex = require("regex");
 var mp3name = "";
 var cheerio = require('cheerio');
 var request = require("sync-request");
-
+var songPath = "/var/www/html/InnovNode/songs";
 
 function getYoutubeLink(string) {
     var toRemove = ["écouter", "ecouter", "YouTube", "youtube"];
@@ -12,20 +13,32 @@ function getYoutubeLink(string) {
         string = string.replace(toRemove[i], "");
     }
     string = string.replace(/\s+/g, ' ').trim();
+    var finalName = string;
     var name = string.split(' ').join('_')+".mp3";
     string = string.split(' ').join('+');
     var url = "https://www.youtube.com/results?search_query="+string;
     var html = request('GET', url);
     var $ = cheerio.load(html.body.toString());
-    return ["https://www.youtube.com"+$(".yt-lockup-title a")[0].attribs.href, name];
+    return ["https://www.youtube.com"+$(".yt-lockup-title a")[0].attribs.href, name, finalName];
 }
 
-function playSong(string) {
+var playSong = function(string) {
     var data = getYoutubeLink(string); 
     var url = data[0];
     var name = data[1];
-    console.log("DATA : "+data);
-    downloadFromYoutube(getFinalYoutube(url), name);
+    var trimName = data[2];
+
+    fs.readdir(songPath, function(err, files) {
+	if (err) return;
+	if (files.indexOf(name) != -1) {
+	    child_process.exec("mplayer "+songPath+"/"+name, function() {
+
+	    });
+	} else {
+	    downloadFromYoutube(getFinalYoutube(url), name);
+	}
+    });
+    return "Lecture de : "+trimName;
 }
 
 function downloadFromYoutube(url, name) {
@@ -33,16 +46,21 @@ function downloadFromYoutube(url, name) {
     console.log("NAME : "+name);
     var YD = new YoutubeMp3Downloader({
         "ffmpegPath": "/usr/bin/ffmpeg",
-        "outputPath": "./",
-        "youtubeVideoQuality": "highest",
+        "outputPath": songPath,
+        "youtubeVideoQuality": "lowest",
         "queueParallelism": 2,
         "progressTimeout": 100
     });
     mp3name = name;
     YD.download(url, name);
 
-    YD.on("finished", function(data, name) {
+    YD.on("finished", function(data) {
 	console.log("FINISHED !");
+	console.log("NAME FINISHED : "+name);
+
+	child_process.exec("mplayer "+songPath+"/"+name, function() {
+	    console.log("song played succefully!");
+	});
     });
 
     YD.on("error", function(error) {
@@ -77,4 +95,4 @@ function getFinalYoutube(string) {
         return string;
 }
 
-playSong("ecouter another brick in the walls");
+exports.playSong = playSong;

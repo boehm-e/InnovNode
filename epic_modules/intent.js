@@ -9,6 +9,7 @@ var news = require("./news.js").news;
 var itineraire = require("./itineraire.js").itineraire;
 var recettes = require("./recettes.js").recettes;
 var images = require("./images.js").images;
+var playSong = require("./musique.js").playSong;
 
 getIntent = function(string, lexic) {
     var type = "";
@@ -19,6 +20,14 @@ getIntent = function(string, lexic) {
 	child_process.exec("mplayer "+filename, function() {
 	    console.log("DONE");
 	});
+    }
+
+    // PLAY MUSIC ?
+    for (var i=0; i<lexic["musique"].length; i++) {
+	if (string.indexOf(lexic["musique"][i]) != -1) {
+	    result = playSong(string);
+	    type = "music";
+	}
     }
     
     // GET CNRTL
