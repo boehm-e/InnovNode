@@ -8,6 +8,7 @@
     "images": ["images", "montre-moi des images", "affiche des images", "montre-moi des photos", "affiche des photos"],
     "itineraire": ["itinéraire", "aller à", "naviguer vers"],
     "recettes": ["recette", "recettes"],
+    "musique": ["écouter"],
     "question": {
 	"weather": ["quel temps", "météo", "faire beau", "parapluie"],
 	"time": ["quelle heure", "quel jour"],

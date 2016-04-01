@@ -29,7 +29,7 @@ server.on('connection', function (wss) {
 	console.log(data);
 	result = getIntent(data, lexic); // get response from the question
 	tts(result[1]); // TEXT TO SPEECH TTS
-//	console.log(result);
+	console.log(result);
 
 
 	if (result[1] != undefined && result[1] != "") {
