@@ -1,0 +1,34 @@
+{
+  "name": "InnovNode",
+  "version": "0.0.0",
+  "description": "Home automation",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boehm-e/InnovNode.git"
+  },
+  "keywords": [
+    "home",
+    "automation",
+    "prep"
+  ],
+  "author": "boehm erwan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boehm-e/InnovNode/issues"
+  },
+  "dependencies": {
+    "ws": "~1.0.1",
+    "xmlhttprequest": "~1.8.0",
+    "sync-request": "~3.0.0",
+    "cheerio": "~0.20.0",
+    "youtube-mp3-downloader": "~0.4.2",
+    "regex": "~0.1.1"
+  }
+}

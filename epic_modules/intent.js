@@ -64,8 +64,13 @@ getIntent = function(string, lexic) {
 	    type = "people";
 	    if (result == undefined)
 		result = "";
-	    else
-		result = result.split('.')[0];  // GET FIRST LINE
+	    else {
+		result = result.replace(/{.*?}/g, "")
+		    .replace(/\[.*?\]/g, "")
+		    .replace(/<.*?>/g, "")
+		    .replace(/\(.*?\)/g, "")
+		    .split('.')[0];
+	    }
 	}
     }
 
