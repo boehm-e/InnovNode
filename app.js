@@ -48,3 +48,22 @@ server.on('connection', function (wss) {
 	}
     });
 });
+
+
+// EXPRESS API
+var express = require('express')
+var app = express();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+var music = require('./epic_modules/musique.js');
+
+console.log(music.songsForWeb());
+
+app.get('/songsForWeb', function (req, res) {
+  res.send(music.songsForWeb());
+})
+ 
+app.listen(3000)
