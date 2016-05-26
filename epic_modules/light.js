@@ -13,6 +13,7 @@ function killPlayer() {
 
 var prev = "";
 var light = function(string, lexic) {
+
     console.log("GET ACTION LIGHT");
     var result = {};
     var split = string.split(" ");
@@ -66,6 +67,7 @@ var light = function(string, lexic) {
 	    phrase += "seront éteints";
     }
     console.log(phrase);
+    phrase = "lumosse maxima!";
     tts(phrase);
     return result;
 }

@@ -6,6 +6,7 @@ function getFirstProp(obj) {
 
 var info = function(string, lexic) {
     console.log("GET INFO RESULT");
+    string = ' '+string+' ';
     var toRemove = ["?", "!", ".", " qu'un ", " qu'une ", " des ", " une "," que ", " de ", " la ", " un ", " le ", "l'"];
     for (var i=0; i<lexic["info"].length; i++) {
 	string = string.replace(lexic["info"][i], "");
