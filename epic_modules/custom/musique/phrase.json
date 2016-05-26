@@ -1,0 +1,10 @@
+[
+    {"text":"écouter ####","label":"musique-playSong"},
+    {"text":"écoutez ####","label":"musique-playSong"},
+    {"text":"mets de la musique", "label":"musique-playSong"},
+    {"text":"coupe le son","label":"musique-killSong"},
+    {"text":"stop le son","label":"musique-killSong"},
+    {"text":"stop la musique","label":"musique-killSong"},
+    {"text":"arrête la musique","label":"musique-killSong"},
+    {"text":"arrête le son","label":"musique-killSong"}
+]

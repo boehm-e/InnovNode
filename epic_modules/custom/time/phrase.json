@@ -1,0 +1,9 @@
+[
+    {"text":"donne-moi la date","label":"time-getDay"},
+    {"text":"quel jour sommes nous","label":"time-getDay"},
+    {"text":"quelle est la date","label":"time-getDay"},
+    {"text":"quelle est l'heure","label":"time-getTime"},
+    {"text":"il est quelle heure","label":"time-getTime"},
+    {"text":"donne-moi l'heure","label":"time-getTime"},
+    {"text":"quelle heure est-il","label":"time-getTime"}
+]
