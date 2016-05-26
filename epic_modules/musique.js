@@ -17,13 +17,23 @@ function getYoutubeLink(string) {
     var name = string.split(' ').join('_')+".mp3";
     string = string.split(' ').join('%20');
 
+    var deezerUrl = encodeURI("https://api.spotify.com/v1/search?query=" + string + "&offset=0&limit=20&type=track").split("%25").join("%");
     // fetch deezer api !    
-    var deezerApi = request('GET', "https://api.spotify.com/v1/search?query=" + string + "&offset=0&limit=20&type=track");
-    var jsonFromDeezer = JSON.parse(deezerApi.body.toString());
-    var author = jsonFromDeezer.tracks.items[0].artists[0].name;
-    var track = jsonFromDeezer.tracks.items[0].name;
+    var deezerApi = request('GET', deezerUrl.replace("%25", "%"));
+    console.log(deezerUrl.replace("%25", "%"));
+    try {
+	console.log(deezerApi.body.toString());
+	var jsonFromDeezer = JSON.parse(deezerApi.body.toString());
+	console.log(jsonFromDeezer);
+	var author = jsonFromDeezer.tracks.items[0].artists[0].name;
+	var track = jsonFromDeezer.tracks.items[0].name;
+    }catch (e) {
+	console.log("ERROR : "+e);
+	return -1;
+    }
 
-    var url = "https://www.youtube.com/results?search_query="+track+" "+author;
+    var url = encodeURI("https://www.youtube.com/results?search_query="+track+"+"+author);
+    console.log("URL: "+url);
     var html = request('GET', url);
     var $ = cheerio.load(html.body.toString());
     console.log($(".yt-lockup-title a")[0].attribs.href);
@@ -33,22 +43,33 @@ function getYoutubeLink(string) {
 
 var killSong = function() {
     child_process.exec("killall mplayer", function() {
-	console.log("La musique a ete arretee")
+    	console.log("La musique a ete arretee")
+    });
+}
+
+function playSongFromPath(path) {
+    child_process.exec("mplayer "+path, function() {
+	console.log(path+" played succefully!");
     });
 }
 
 var playSong = function(string) {
-    var data = getYoutubeLink(string); 
+    var data = getYoutubeLink(string);
+    if (data == -1) {
+	return "song not found";
+    }
 
     var url = data[0];
     var track = data[1].toLowerCase();
-    var author = data[2].toLowerCase();
+    var author = data[2].toLowerCase().replace(/ /g, "_");
     var mp3 = track.split(' ').join('_')+'.mp3';
 
     var songExists = fs.existsSync(songPath+'/'+author+'/'+mp3);
 
     if (songExists == true){
-	console.log("SONG EXISTS TRUE");
+	killSong();
+	console.log("SONG EXISTS, PLAYING");
+	playSongFromPath(songPath+"/"+author+"/"+mp3);
     } else {
 	try {
 	    fs.mkdirSync(songPath+'/'+author);
@@ -57,7 +78,6 @@ var playSong = function(string) {
 	}
 	downloadFromYoutube(getFinalYoutube(url), mp3, songPath+'/'+author);
     }
-
 
     return "Lecture de : "+track;
 }
@@ -90,16 +110,11 @@ function downloadFromYoutube(url, name, path) {
     });
     mp3name = name;
     // REMOVE
-    url = "lX3uCuFKlqw";
     YD.download(url, name);
 
     YD.on("finished", function(data) {
-	console.log("FINISHED !");
-	console.log("NAME FINISHED : "+name);
-
-	child_process.exec("mplayer "+path+"/"+name, function() {
-	    console.log("song played succefully!");
-	});
+	killSong();
+	playSongFromPath(path+"/"+name);
     });
 
     YD.on("error", function(error) {

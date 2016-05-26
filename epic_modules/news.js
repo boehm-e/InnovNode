@@ -51,14 +51,19 @@ function bfm() {
 }
 
 var news = function(string, lexic) {
-    if (string.indexOf("futura science") != -1)
+    string = string.toLowerCase();
+    if (string.indexOf("futura science") != -1 || string.indexOf("futura-sciences") != -1)
 	var phrase = futurasciences();
     else if (string.indexOf("20 minutes") != -1)
 	var phrase = vingtsmin();
-    else if (string.indexOf("BFM") != -1)
+    else if (string.indexOf("bfm") != -1)
 	var phrase = bfm();
 
-    phrase = phrase.replace(/\s+/g, ' ').trim();
+    try {
+	phrase = phrase.replace(/\s+/g, ' ').trim();
+    } catch(e) {
+	console.log("ERROR NEWS : "+e);
+    }
     return phrase;
 }
 
