@@ -1,5 +1,13 @@
+var thisModule = 'news';
+
+
+var fs = require('fs');
+var natural = require('natural');
+var classifier = new natural.BayesClassifier()
 var request = require("sync-request");
 var cheerio = require("cheerio");
+var __path = JSON.parse(fs.readFileSync(('./config/config.json'))).system;
+
 
 function futurasciences() {
     var html = "http://www.futura-sciences.com/";
@@ -12,7 +20,7 @@ function futurasciences() {
     var result = array.splice(0, 2);
     var phrase = "";
     for (var i=0; i<result.length; i++) {
-	phrase += result[i]+", ";
+	phrase += result[i]+". ";
     }
     return phrase;
 }
@@ -28,7 +36,7 @@ function vingtsmin() {
     var result = array.splice(0, 2);
     var phrase = "";
     for (var i=0; i<result.length; i++) {
-	phrase += result[i]+", ";
+	phrase += result[i]+". ";
     }
     return phrase;
 }
@@ -45,7 +53,7 @@ function bfm() {
     var result = array.splice(0, 2);
     var phrase = "";
     for (var i=0; i<result.length; i++) {
-	phrase += result[i]+", ";
+	phrase += result[i]+". ";
     }
     return phrase;
 }
@@ -67,4 +75,39 @@ var news = function(string, lexic) {
     return phrase;
 }
 
-exports.news = news;
+
+function init() {
+    var _json = JSON.parse(fs.readFileSync(__path.modulePath+thisModule+"/phrase.json"));
+    for (i=0; i<_json.length; i++) {
+        var text = _json[i].text;
+        var label = _json[i].label;
+	classifier.addDocument(text, label);
+    }
+    classifier.train();
+}
+
+
+var start = function(string) {
+    var func = classifier.classify(string).split('-')[1];
+    console.log(func);
+    var result = "";
+    switch(func) {
+    case "futurasciences":
+	result = futurasciences();
+        break;
+    case "bfm":
+	result = bfm();
+        break;
+    case "20minutes":
+	result = vingtsmin();
+        break;
+    default :
+	result = vingtsmin();
+	break;
+    }
+    return result.replace(/\s+/g, ' ').trim();
+}
+
+
+init();
+exports.start = start;

@@ -1,5 +1,10 @@
 {  
-   "tvShow":[  
+    "system": {
+	"globalPath": "/var/www/html/InnovNode/",
+	"lexic": "/var/www/html/InnovNode/lexic.json",
+	"modulePath": "/var/www/html/InnovNode/epic_modules/custom/"
+    },
+    "tvShow":[  
       "arrow",
       "flash"
    ],

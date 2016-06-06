@@ -1,0 +1,7 @@
+[
+    {"text":"donne-moi le synonyme du mot ####","label":"cnrtl-synonyme"},
+    {"text":"quel est le synonyme du mot ####","label":"cnrtl-synonyme"},
+    {"text":"donne-moi les antonymes du mot ####","label":"cnrtl-antonyme"},
+    {"text":"donne-moi l'antonyme du mot ####","label":"cnrtl-antonyme"},
+    {"text":"quel est l'antonyme du mot ####","label":"cnrtl-antonyme"}
+]

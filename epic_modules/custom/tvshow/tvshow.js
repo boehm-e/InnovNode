@@ -2,7 +2,7 @@ var fs = require('fs');
 var request = require("sync-request");
 var cheerio = require("cheerio");
 
-var tvShowList = fs.readFileSync();
+
 var tvShowList = ["arrow", "flash", "Marvel: Les Agents du S.H.I.E.L.D.", "gotham", "banshee"];
 var alreadyDone = {};
 
@@ -41,8 +41,4 @@ var tvShow = function(string, lexic) {
 }
 
 setInterval(function(){
-    getTvShow();
 }, 1000);
-
-
-//exports.news = news;

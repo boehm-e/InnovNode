@@ -4,6 +4,7 @@ var thisModule = 'musique';
 var fs = require('fs');
 var natural = require('natural');
 var classifier = new natural.BayesClassifier();
+var __path = JSON.parse(fs.readFileSync(('./config/config.json'))).system;
 
 var YoutubeMp3Downloader = require('youtube-mp3-downloader');
 var fs = require('fs');
@@ -157,7 +158,7 @@ function getFinalYoutube(string) {
 }
 
 function init() {
-    var _json = JSON.parse(fs.readFileSync("./custom/"+thisModule+"/phrase.json"));
+    var _json = JSON.parse(fs.readFileSync(__path.modulePath+thisModule+"/phrase.json"));
     for (i=0; i<_json.length; i++) {
         var text = _json[i].text;
         var label = _json[i].label;

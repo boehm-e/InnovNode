@@ -1,20 +1,17 @@
+
+var thisModule = 'musique';
+
 var fs = require("fs");
-var filename = "../output.mp3";
 var http = require('http');
 var child_process = require("child_process");
-var tts = require("./tts.js").tts;
+var natural = require('natural');
+var classifier = new natural.BayesClassifier();
+var __path = JSON.parse(fs.readFileSync(('./config/config.json'))).system;
 
-
-function killPlayer() {
-    child_process.exec("killall mplayer", function() {
-	console.log("audio Player killed");
-    });
-}
 
 var prev = "";
 var light = function(string, lexic) {
 
-    console.log("GET ACTION LIGHT");
     var result = {};
     var split = string.split(" ");
     var j = 0;
@@ -41,7 +38,6 @@ var light = function(string, lexic) {
 	if (result[i][1] == "turn_off")
 	    phraseObj["off"].push(result[i][0]);
     }
-    console.log(phraseObj);
     var begin = ["très bien", "Ok", "Super", "Ah vos ordres", "Bien entendu"];
 
     var phrase = begin[Math.floor(Math.random() * begin.length)]+" , ";
@@ -66,10 +62,28 @@ var light = function(string, lexic) {
 	else
 	    phrase += "seront éteints";
     }
-    console.log(phrase);
-    phrase = "lumosse maxima!";
-    tts(phrase);
+//    phrase = "lumosse maxima!";
+    return phrase;
     return result;
 }
 
-exports.getActionLight = light;
+function init() {
+    var _json = JSON.parse(fs.readFileSync(__path.modulePath+thisModule+"/phrase.json"));
+    for (i=0; i<_json.length; i++) {
+        var text = _json[i].text;
+        var label = _json[i].label;
+	classifier.addDocument(text, label);
+    }
+    classifier.train();
+}
+
+
+var start = function(string) {
+    var func = classifier.classify(string).split('-')[1];
+    var lexic = JSON.parse(fs.readFileSync(__path.lexic));
+    return light(string, lexic);
+}
+
+
+init();
+exports.start = start;

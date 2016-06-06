@@ -16,7 +16,7 @@ var removeEvent = function(index) {
 
 // NEEDED MODULES
 var tts = require("./tts.js").tts;
-var music = require("./musique.js");
+var music = require("./custom/musique/musique.js");
 
 console.log("EventHandler initialized!\n\n");
 var keywordArray = [];

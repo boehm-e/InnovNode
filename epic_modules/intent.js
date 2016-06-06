@@ -3,15 +3,15 @@ var filename = "../output.mp3";
 var fs = require('fs');
 var natural = require('natural');
 var classifier = new natural.BayesClassifier();
-
+var __path = JSON.parse(fs.readFileSync(('./config/config.json'))).system;
 
 var getIntent = function(string) {
     var files = { };
    
-    var array = ['info','musique','time'];
+    var array = ['info','musique','time', 'cnrtl', 'news', 'volume', 'light'];
     array.forEach(function (module) {
-	var modulePath = './custom/'+module+'/'+module+'.js';
-	var phrase = './custom/'+module+'/phrase.json';	
+	var modulePath = __path.modulePath+module+'/'+module+'.js';
+	var phrase = __path.modulePath+module+'/phrase.json';	
 	files[module] = require(modulePath);
 
 	var _json = JSON.parse(fs.readFileSync(phrase));
@@ -25,12 +25,12 @@ var getIntent = function(string) {
     })
     
     classifier.train();
+   
     var clas = classifier.classify(string).split('-')[0];
     console.log("CLASSIFICATION : "+clas);
     var res = files[clas].start(string);
-    console.log(res)
     return res;
 }
 
 exports.getIntent = getIntent;
-getIntent("écouter the song of silence")
+//getIntent("qui est Roger Waters");

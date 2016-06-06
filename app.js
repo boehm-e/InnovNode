@@ -35,13 +35,12 @@ server.on('connection', function (wss) {
     clients.push(wss);  // add client to the array
 
     wss.on('message', function (data) {
-	console.log(data);
+	console.log("request : "+data);
 	events.keyword(data);
 	result = getIntent(data, lexic); // get response from the question
-	tts(result[1]); // TEXT TO SPEECH TTS
-/*	console.log(result);
-
-	
+	console.log(result);
+	tts(result); // TEXT TO SPEECH TTS
+/*	
 	if (result[1] != undefined && result[1] != "") {
 	    if (result[0] == "recettes" || result[0] == "images")
 		sendAll(JSON.stringify(["url", result[1], result[2]]));

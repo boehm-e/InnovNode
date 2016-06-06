@@ -1,0 +1,17 @@
+[
+    {"text":"augmente le son","label":"volume-up"},
+    {"text":"mets le son plus fort","label":"volume-up"},
+    {"text":"augmente le volume de la musique","label":"volume-up"},
+
+    {"text":"baisse le son","label":"volume-down"},
+    {"text":"mets le son moins fort","label":"volume-down"},
+    {"text":"baisse le volume de la musique","label":"volume-down"},
+
+    {"text":"stoppe le son","label":"volume-stop"},
+    {"text":"arrête la musique","label":"volume-stop"},
+    {"text":"plus un bruit","label":"volume-stop"},
+    {"text":"ferme-la","label":"volume-stop"},
+
+    {"text":"mets le son à %","label":"volume-set"},
+    {"text":"règle le volume à %","label":"volume-set"}
+]
