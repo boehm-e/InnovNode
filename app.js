@@ -20,6 +20,10 @@ require.reload = function reload(path){
 };
 
 
+// START KWS
+child_process.spawn("python", ["/home/pi/kws/demo.py", "/home/pi/kws/gustave.pmdl"])
+
+
 // PERSONAL EPIC MODULES
 var getIntent =  require("./epic_modules/intent.js").getIntent;
 var tts = require("./epic_modules/tts.js").tts;
@@ -77,9 +81,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var asr = null;
 // START RECORDING
 app.get('/startAsr', function (req, res) {
+   
     asr = reload('/home/pi/cliAsrNode/audio.js');
     asr.init();
-    asr.micInstance.start();
+    setTimeout(function(){	
+	asr.micInstance.start();
+    }, 500);
+    res.send("ok");
 })
 
 
@@ -99,6 +107,9 @@ app.post('/answer', function (req, res) {
     tts(result); // TEXT TO SPEECH TTS
     res.send("ok");
     asr = reload('/home/pi/cliAsrNode/audio.js');
+
+    // RE START KWS
+    child_process.spawn("python", ["/home/pi/kws/demo.py", "/home/pi/kws/gustave.pmdl"])
 })
 
 app.get('/getEventList', function (req, res) {
