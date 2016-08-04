@@ -8,7 +8,7 @@ var request = require('sync-request');
 var http = require('http');
 var filename = "output.mp3";
 var child_process = require("child_process");
-
+var reload = require('require-reload')(require);
 var cheerio = require('cheerio');
 
 // EVENT LISTENER
@@ -71,10 +71,34 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+var asr = null;
+// START RECORDING
+app.get('/startAsr', function (req, res) {
+    asr = reload('/home/pi/cliAsrNode/audio.js');
+    asr.init();
+    asr.micInstance.start();
+})
+
+
 
 app.get('/songsForWeb', function (req, res) {
   res.send(music.songsForWeb());
+})
+
+
+app.post('/answer', function (req, res) {
+    console.log(req.body);
+    var data = req.body.q;
+    console.log("request : "+data);
+    events.keyword(data);
+    result = getIntent(data, lexic); // get response from the question
+    console.log(result);
+    tts(result); // TEXT TO SPEECH TTS
+    res.send("ok");
+    asr = reload('/home/pi/cliAsrNode/audio.js');
 })
 
 app.get('/getEventList', function (req, res) {

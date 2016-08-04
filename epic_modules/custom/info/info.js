@@ -23,7 +23,7 @@ function getFirstProp(obj) {
 }
 
 function info(string) {
-    var lexic = JSON.parse(fs.readFileSync('/var/www/html/CleanInnov/lexic.json'));
+    var lexic = JSON.parse(fs.readFileSync('/home/pi/InnovNode/lexic.json'));
     string = ' '+string+' ';
     var toRemove = ["?", "!", ".", ,"qu'est ce", "qu'un ", " qu'une ", " des ", " une "," que ", " de ", " la ", " un ", " le ", "l'"];
     for (var i=0; i<lexic["info"].length; i++) {

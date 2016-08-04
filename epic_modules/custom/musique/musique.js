@@ -13,7 +13,7 @@ var Regex = require("regex");
 var mp3name = "";
 var cheerio = require('cheerio');
 var request = require("sync-request");
-var songPath = "/var/www/html/InnovNode/songs";
+var songPath = "/home/pi/InnovNode/songs";
 
 function getYoutubeLink(string) {
     var toRemove = ["écouter", "ecouter", "YouTube", "youtube"];
