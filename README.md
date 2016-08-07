@@ -35,14 +35,14 @@ every module is inside his directory ex:
 		|___phrase.json
 ```
 
-### news
+#### news
 the name of the directory has to be the same as the name of the Node.JS file
 
-### phrase.json
+#### phrase.json
 	
 every module has a 'phrase.json'
 
-### news.js
+#### news.js
 this is the intelligence of the program, this is the place where you have to develop your program feature(s)
 
 
