@@ -19,6 +19,17 @@ Once silence or no speaking for too long is detected, the last sentense recovere
 	ex: "who is Roger Waters?" ==> "informations"
 	we call the "informations" module with the sentense "who is Roger Waters" in parameters
 
+
+## Launch
+
+install npm and node on your raspberry pi:
+`sudo apt-get install npm`
+`npm install -g n`
+`n stable`
+
+then run the app:
+`node app.js`
+
 ## What is a module?
 
 A Gustave module is like a node module but with specific code organization:
@@ -42,7 +53,7 @@ the name of the directory has to be the same as the name of the Node.JS file
 ```
 [
     {"text":"give me the news of the times","label":"news-times"},
-    {"text":"give me the news of the world","label":"news-world"},
+    {"text":"give me the news of the world","label":"news-world"}
 ]
 ```
 
@@ -76,7 +87,7 @@ example: we will create a module name say:
     {"text":"say hello","label":"say-hello"},
     {"text":"please say hi","label":"say-hello"},
     {"text":"please say good bye","label":"say-bye"},
-    {"text":"say bye","label":"say-bye"},
+    {"text":"say bye","label":"say-bye"}
 ]
 ```
 
