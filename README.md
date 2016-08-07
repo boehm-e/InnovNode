@@ -28,11 +28,11 @@ In order to give the possibility to everyone to develop his own module, we had t
 
 every module is inside his directory ex:
 ```
-_epic_modules
-_custom
-__news
-___news.js
-___phrase.json
+|epic_modules
+|__custom
+	|__news
+		|___news.js
+		|___phrase.json
 ```
 
 ### news
