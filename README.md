@@ -39,11 +39,87 @@ every module is inside his directory ex:
 the name of the directory has to be the same as the name of the Node.JS file
 
 #### phrase.json
-	
-every module has a 'phrase.json'
+```
+[
+    {"text":"give me the news of the times","label":"news-times"},
+    {"text":"give me the news of the world","label":"news-world"},
+]
+```
+
+every module has a 'phrase.json', this contains examples sentenses that can call the module.
+Thanks to the deep learning module we are using (natural), we are able to identify the wrong module with a given sentense even if this sentense is not in our phrase.json
+in this example, if we say "whate are the times news" Gustave will understand and the intent module will return "news" ('news-times'.split('-')[0]).
+The `second part of the label` (times) will be sent to the `start` function of the module "news/news.js".
+
 
 #### news.js
 this is the intelligence of the program, this is the place where you have to develop your program feature(s)
+When the intent module call the module, it always calls the `start` function with the `second part of the label` :
+	if we take the same sentense as before the second part of the label will be "times"
+	so if your module is made to handle multiple questions, you just have to make a simple switch case.
 
 
-## How to add modules?
+## How to create a modules?
+noting is more simple:
+example: we will create a module name say:
+1. create the directory
+	create the directory inside epic_modules/custom/
+	`cd epic_modules/custom`
+	`mkdir say`
+
+2. create say.js and phrase.json 
+	`touch say.js phrase.json`
+
+3. edit phrase.json
+```
+[
+    {"text":"say hello","label":"say-hello"},
+    {"text":"please say hi","label":"say-hello"},
+    {"text":"please say good bye","label":"say-bye"},
+    {"text":"say bye","label":"say-bye"},
+]
+```
+
+4. edit say.js
+```
+var thisModule = 'say';
+
+// module needed 
+var fs = require('fs');
+var natural = require('natural');
+var classifier = new natural.BayesClassifier();
+
+// init function called by Gustave at launch, used to determine the module to call 
+function init() {
+    var _json = JSON.parse(fs.readFileSync(__path.modulePath+thisModule+"/phrase.json"));
+    for (i=0; i<_json.length; i++) {
+        var text = _json[i].text;
+        var label = _json[i].label;
+		classifier.addDocument(text, label);
+    }
+    classifier.train();
+}
+
+var start = function(string) {
+	// label is the second part of the label, here it can be : "bye" or "hello"
+    var label = classifier.classify(string).split('-')[1];
+    var result = "";
+
+    switch(label) {
+    case "hello":
+        result = "hello world";
+	break;
+    case "bye":
+		result = "bye bye";
+    break;
+    }
+
+    // return is a string, it will be used by tts engine
+    return result;
+}
+
+init();
+exports.start = start;
+```
+
+Thats it, you created your first Gustave module, congratulations!
