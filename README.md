@@ -25,12 +25,13 @@ A Gustave module is like a node module but with specific code organization:
 every module give to Gustave a new feature.
 The modules are located in epic_modules/custom.
 In order to give the possibility to everyone to develop his own module, we had to create a custom code organization:
-	every module is inside his directory ex:
-		|epic_modules
-		|___custom
-			|____news
-				|____news.js
-				|____phrase.json
+
+every module is inside his directory ex:
+|epic_modules\n
+|__custom\n
+  |__news\n
+    |__news.js\n
+    |__phrase.json
 
 
 ### news
