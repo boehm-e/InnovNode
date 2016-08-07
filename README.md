@@ -27,17 +27,11 @@ The modules are located in epic_modules/custom.
 In order to give the possibility to everyone to develop his own module, we had to create a custom code organization:
 
 every module is inside his directory ex:
-- epic_modules
-- custom
-- - news
-- - - news.js
-- - - phrase.json
-
-    |-- epic_modules
-        |-- custom
-	        |-- news
-	            |-- news.js
-		        |-- phrase.json 
+    _epic_modules
+    _custom
+    __news
+    ___news.js
+    ___phrase.json
 
 
 ### news
