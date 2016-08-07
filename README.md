@@ -33,6 +33,12 @@ every module is inside his directory ex:
 - - - news.js
 - - - phrase.json
 
+    |-- epic_modules
+        |-- custom
+	        |-- news
+	            |-- news.js
+		        |-- phrase.json 
+
 
 ### news
 the name of the directory has to be the same as the name of the Node.JS file
