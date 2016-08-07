@@ -34,14 +34,14 @@ In order to give the possibility to everyone to develop his own module, we had t
 
 
 ### news
-	the name of the directory has to be the same as the name of the Node.JS file
+the name of the directory has to be the same as the name of the Node.JS file
 
 ### phrase.json
 	
-	every module has a 'phrase.json'
+every module has a 'phrase.json'
 
 ### news.js
-	this is the intelligence of the program, this is the place where you have to develop your program feature(s)
+this is the intelligence of the program, this is the place where you have to develop your program feature(s)
 
 
 ## How to add modules?
