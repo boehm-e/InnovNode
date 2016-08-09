@@ -58,7 +58,7 @@ the name of the directory has to be the same as the name of the Node.JS file
 ```
 
 every module has a 'phrase.json', this contains examples sentenses that can call the module.
-Thanks to the deep learning module we are using (natural), we are able to identify the wrong module with a given sentense even if this sentense is not in our phrase.json
+Thanks to the deep learning module we are using (natural), we are able to identify the right module with a given sentense even if this sentense is not in our phrase.json
 in this example, if we say "whate are the times news" Gustave will understand and the intent module will return "news" ('news-times'.split('-')[0]).
 The `second part of the label` (times) will be sent to the `start` function of the module "news/news.js".
 
@@ -70,7 +70,7 @@ When the intent module call the module, it always calls the `start` function wit
 	so if your module is made to handle multiple questions, you just have to make a simple switch case.
 
 
-## How to create a modules?
+## How to create a module?
 noting is more simple:
 example: we will create a module name say:
 1. create the directory
